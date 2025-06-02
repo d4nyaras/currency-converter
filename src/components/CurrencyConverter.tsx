@@ -1,33 +1,34 @@
 "use client";
-import { useState } from "react";
+
+import React, { useState } from "react";
 import { LuRefreshCw } from "react-icons/lu";
 
-export default function CurrencyConverter() {
+const CurrencyConverter: React.FC = () => {
+  const [exchangeRateInput, setExchangeRateInput] = useState(" 822500");
   const [amountInput, setAmountInput] = useState("1");
-  const [exchangeRateInput, setExchangeRateInput] = useState("50000");
-  const [isToUSD, setIsToUSD] = useState(false);
+  const [usdToIrr, setUsdToIrr] = useState(true);
 
-  const amount = parseFloat(amountInput) || 0;
-  const exchangeRate = parseFloat(exchangeRateInput) || 1;
-
-  const convert = (value: number, toUSD: boolean) =>
-    toUSD ? value / exchangeRate : value * exchangeRate;
-
-  const converted = convert(amount, isToUSD).toFixed(isToUSD ? 5 : 0);
+  const handleNumericInput = (value: string, setter: (val: string) => void) => {
+    if (/^\d*\.?\d*$/.test(value)) {
+      setter(value);
+    }
+  };
 
   const handleSwitch = () => {
-    const newDirection = !isToUSD;
-    const newAmount = convert(amount, newDirection);
-    setIsToUSD(newDirection);
-    setAmountInput(newAmount.toString());
+    setUsdToIrr(!usdToIrr);
   };
 
-  const getLabel = (isRight: boolean) =>
-    isToUSD ? (isRight ? "🇺🇸 USD" : "🇮🇷 IRR") : isRight ? "🇮🇷 IRR" : "🇺🇸 USD";
-
-  const handleNumericInput = (val: string, setter: (v: string) => void) => {
-    if (/^\d*\.?\d*$/.test(val)) setter(val);
+  const getLabel = (isConvertedSide: boolean) => {
+    const isUSD = isConvertedSide ? !usdToIrr : usdToIrr;
+    return isUSD ? "🇺🇸 USD" : "🇮🇷 IRR";
   };
+
+  const converted = (() => {
+    const amount = parseFloat(amountInput);
+    const rate = parseFloat(exchangeRateInput);
+    if (isNaN(amount) || isNaN(rate)) return "";
+    return usdToIrr ? (amount * rate).toFixed(0) : (amount / rate).toFixed(2);
+  })();
 
   return (
     <div className="flex-1 flex items-center justify-center ">
@@ -35,6 +36,7 @@ export default function CurrencyConverter() {
         <div className="text-purple-600  py-2 flex align-items-start ">
           <h2 className="font-semibold text-2xl ">Currency Converter</h2>
         </div>
+
         <div className="w-full flex flex-col">
           <label className="p-2 text-gray-400">
             Exchange Rate (1 USD to IRR)
@@ -90,4 +92,6 @@ export default function CurrencyConverter() {
       </div>
     </div>
   );
-}
+};
+
+export default CurrencyConverter;
