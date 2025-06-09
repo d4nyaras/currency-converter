@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { LuRefreshCw } from "react-icons/lu";
 
 const CurrencyConverter: React.FC = () => {
-  const [exchangeRateInput, setExchangeRateInput] = useState(" 822500");
+  const [exchangeRateInput, setExchangeRateInput] = useState("822500");
   const [amountInput, setAmountInput] = useState("1");
   const [usdToIrr, setUsdToIrr] = useState(true);
 
