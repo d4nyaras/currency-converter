@@ -66,6 +66,7 @@ const CurrencyConverter: React.FC = () => {
             />
           </div>
           <h1></h1> <h1></h1>
+          <h1></h1> <h1></h1>
           <div
             className="relative z-20 -my-6 xl:-mx-6 cursor-pointer"
             onClick={handleSwitch}
