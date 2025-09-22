@@ -65,8 +65,7 @@ const CurrencyConverter: React.FC = () => {
               className="peer w-full p-4 pt-6 border-slate-300 outline-none bg-white font-light border-b-2 transition"
             />
           </div>
-          <h1></h1>
-
+          <h1></h1> <h1></h1>
           <div
             className="relative z-20 -my-6 xl:-mx-6 cursor-pointer"
             onClick={handleSwitch}
@@ -77,7 +76,6 @@ const CurrencyConverter: React.FC = () => {
               </div>
             </div>
           </div>
-
           <div className="w-full  xl:w-1/2 bg-white p-8 rounded-xl">
             <label className="text-gray-500 mb-2 block">
               Converted to {getLabel(true)}
